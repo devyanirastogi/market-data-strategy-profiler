@@ -1,0 +1,4 @@
+psutil
+matplotlib
+seaborn
+pandas
