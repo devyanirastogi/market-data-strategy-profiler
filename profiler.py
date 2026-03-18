@@ -9,7 +9,6 @@ from models import Strategy
 from strategies import *
 
 def get_process_memory() -> float:
-    """Peak memory in MB using psutil (100% reliable)."""
     process = psutil.Process(os.getpid())
     return process.memory_info().rss / 1024 ** 2
 
@@ -25,7 +24,6 @@ def measure_time(strategy_cls: Type[Strategy], data):
     return time.perf_counter() - start
 
 def measure_memory(strategy_cls: Type[Strategy], data):
-    """Peak memory using psutil."""
     mem_before = get_process_memory()
     strat = strategy_cls()
     run_strategy(strat, data)
@@ -33,7 +31,6 @@ def measure_memory(strategy_cls: Type[Strategy], data):
     return mem_after - mem_before + 20  # baseline overhead
 
 def cprofile_report(strategy_cls: Type[Strategy], data):
-    """cProfile hotspots."""
     strat = strategy_cls()
     pr = cProfile.Profile()
     pr.enable()
